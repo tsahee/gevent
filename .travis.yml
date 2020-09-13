@@ -9,10 +9,7 @@
 language: shell
 dist: bionic
 group: travis_latest
-os:
-  - linux
-  - osx
-osx_image: xcode11.4
+os: linux
 addons:
   homebrew:
     packages:
@@ -156,15 +153,6 @@ jobs:
   fast_finish: true
   exclude:
     - os: osx
-      env: TRAVIS_PYTHON_VERSION=3.5
-    - os: osx
-      env: TRAVIS_PYTHON_VERSION=3.9
-    - os: osx
-      env: TRAVIS_PYTHON_VERSION=pypy2.7
-    - os: osx
-      env: TRAVIS_PYTHON_VERSION=pypy3.6
-    - os: osx
-      env: TRAVIS_PYTHON_VERSION=2.7 GEVENTSETUP_EMBED=0 GEVENTSETUP_EV_VERIFY=1
 
   include:
     - &build-gevent
@@ -211,18 +199,6 @@ jobs:
     - <<: *build-gevent
       env: TRAVIS_PYTHON_VERSION=pypy3.6
 
-    - <<: *build-gevent
-      env: TRAVIS_PYTHON_VERSION=2.7
-      os: osx
-    - <<: *build-gevent
-      env: TRAVIS_PYTHON_VERSION=3.6
-      os: osx
-    - <<: *build-gevent
-      env: TRAVIS_PYTHON_VERSION=3.7
-      os: osx
-    - <<: *build-gevent
-      env: TRAVIS_PYTHON_VERSION=3.8
-      os: osx
 
     - <<: *build-gevent
       env: TRAVIS_PYTHON_VERSION=2.7 GEVENTSETUP_EMBED=0 GEVENTSETUP_EV_VERIFY=1
