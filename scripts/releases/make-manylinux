@@ -36,7 +36,10 @@ export CCACHE_DIR="/ccache"
 export CFLAGS="-Ofast -pipe -Wno-strict-aliasing -Wno-comment -Wno-unused-value -Wno-unused-but-set-variable -Wno-sign-compare -Wno-parentheses -Wno-unused-function -Wno-tautological-compare -Wno-strict-prototypes"
 export LDFLAGS="-lrt" # Needed for clock_gettime libc support on this version.
 
+echo checking if in docker
+
 if [ -d /gevent -a -d /opt/python ]; then
+    echo yes, running in docker
     # Running inside docker
 
     # Set a cache directory for pip. This was
@@ -106,5 +109,7 @@ echo Sharing ccache dir at $HOME/.ccache
 if [ ! -d $HOME/.ccache ]; then
     mkdir $HOME/.ccache
 fi
-docker run --rm -ti -v "$(pwd):/gevent" -v "$LCACHE:/cache" -v "$HOME/.ccache:/ccache" $(DOCKER_IMAGE) /gevent/scripts/releases/$(basename $0)
+echo running docker image: $DOCKER_IMAGE
+
+docker run --rm -t -v "$(pwd):/gevent" -v "$LCACHE:/cache" -v "$HOME/.ccache:/ccache" $DOCKER_IMAGE /gevent/scripts/releases/$(basename $0)
 ls -l wheelhouse
