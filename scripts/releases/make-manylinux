@@ -106,5 +106,5 @@ echo Sharing ccache dir at $HOME/.ccache
 if [ ! -d $HOME/.ccache ]; then
     mkdir $HOME/.ccache
 fi
-docker run --rm -ti -v "$(pwd):/gevent" -v "$LCACHE:/cache" -v "$HOME/.ccache:/ccache" quay.io/pypa/manylinux2010_x86_64 /gevent/scripts/releases/$(basename $0)
+docker run --rm -ti -v "$(pwd):/gevent" -v "$LCACHE:/cache" -v "$HOME/.ccache:/ccache" $(DOCKER_IMAGE) /gevent/scripts/releases/$(basename $0)
 ls -l wheelhouse
